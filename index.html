@@ -9,9 +9,9 @@ header{padding:50px;}
 h1{font-size:50px;margin:0;}
 h2{font-size:30px;margin:0;}
 nav{margin:30px;}
-button, input, select{padding:10px;margin:5px;border-radius:8px;font-size:16px;}
+button,input,select{padding:10px;margin:5px;border-radius:8px;font-size:16px;}
 .card{background:#f0f0f0;padding:20px;margin:20px;border-radius:15px;display:inline-block;}
-#donateSection{display:none;margin-top:30px;}
+section{display:none;margin-top:30px;}
 </style>
 </head>
 <body>
@@ -22,84 +22,58 @@ button, input, select{padding:10px;margin:5px;border-radius:8px;font-size:16px;}
 </header>
 
 <nav>
-<button onclick="showDonate()">Пожертвовать</button>
+<button onclick="showSection('donates')">Донаты</button>
+<button onclick="showSection('custom')">Пожертвовать</button>
 </nav>
 
-<div id="donateSection">
+<section id="donates">
 <h2>Выберите донат</h2>
-<input id="nick" placeholder="Ваш ник"><br>
+<input id="nick1" placeholder="Ваш ник"><br>
+<div class="card"><h3>💚 Donater</h3><button onclick="buy('donater',2,'nick1')">Купить 2€</button></div>
+<div class="card"><h3>💛 VIP</h3><button onclick="buy('vip',5,'nick1')">Купить 5€</button></div>
+<div class="card"><h3>💙 VIP+</h3><button onclick="buy('vipplus',10,'nick1')">Купить 10€</button></div>
+</section>
 
-<div class="card">
-<h3>💚 Donater</h3>
-<button onclick="buy('donater', 2)">Купить 2€</button>
-</div>
-<div class="card">
-<h3>💛 VIP</h3>
-<button onclick="buy('vip', 5)">Купить 5€</button>
-</div>
-<div class="card">
-<h3>💙 VIP+</h3>
-<button onclick="buy('vipplus', 10)">Купить 10€</button>
-</div>
-
-<h2>Или пожертвовать любую сумму</h2>
+<section id="custom">
+<h2>Пожертвовать любую сумму</h2>
+<input id="nick2" placeholder="Ваш ник"><br>
 <input id="customAmount" placeholder="Сумма в €" type="number" min="1"><br>
-<button onclick="buy('custom', 0)">Оплатить выбранную сумму</button>
+<button onclick="buy('custom',0,'nick2')">Оплатить выбранную сумму</button>
+</section>
 
-<div id="pay">
+<section id="pay">
 <h2>Оплата</h2>
 <select id="method" onchange="updateForm()">
 <option>PayPal</option>
 <option>СБП</option>
 </select><br>
-
 <div id="paypalFields">
 <input id="fname" placeholder="Имя"><br>
 <input id="lname" placeholder="Фамилия"><br>
 </div>
-
 <input id="card" placeholder="Номер карты" maxlength="19"><br>
 <input id="date" placeholder="MM/YY" maxlength="5"><br>
 <input id="cvv" placeholder="CVV" maxlength="3"><br>
 <button onclick="finish()">Оплатить</button>
-</div>
-</div>
+</section>
 
 <script>
-let rank="", amount=0;
-function showDonate(){document.getElementById("donateSection").style.display="block"}
-function buy(r,a){rank=r;amount=a;document.getElementById("pay").style.display="block"}
+let rank="", amount=0, nickInput="";
+function showSection(id){document.getElementById('donates').style.display='none';document.getElementById('custom').style.display='none';document.getElementById(id).style.display='block'}
+function buy(r,a,nickId){rank=r;amount=a;nickInput=nickId;document.getElementById('pay').style.display='block'}
 function onlyNumbers(v){return v.replace(/\D/g,"")}
-document.getElementById("card").addEventListener("input",e=>{
-let v=onlyNumbers(e.target.value).substring(0,16);
-let f=v.match(/.{1,4}/g);
-e.target.value=f?f.join(" "):"";
-});
-document.getElementById("date").addEventListener("input",e=>{
-let v=onlyNumbers(e.target.value).substring(0,4);
-e.target.value=v.length>=3?v.substring(0,2)+"/"+v.substring(2):v;
-});
-document.getElementById("cvv").addEventListener("input",e=>{
-e.target.value=onlyNumbers(e.target.value).substring(0,3);
-});
-function updateForm(){
-let method=document.getElementById("method").value;
-document.getElementById("paypalFields").style.display=(method=="PayPal")?"block":"none";
-}
+document.getElementById("card").addEventListener("input",e=>{let v=onlyNumbers(e.target.value).substring(0,16);let f=v.match(/.{1,4}/g);e.target.value=f?f.join(" "):"";});
+document.getElementById("date").addEventListener("input",e=>{let v=onlyNumbers(e.target.value).substring(0,4);e.target.value=v.length>=3?v.substring(0,2)+"/"+v.substring(2):v;});
+document.getElementById("cvv").addEventListener("input",e=>{e.target.value=onlyNumbers(e.target.value).substring(0,3);});
+function updateForm(){document.getElementById("paypalFields").style.display=(document.getElementById("method").value=="PayPal")?"block":"none";}
 function finish(){
-let nick=document.getElementById("nick").value;
-if(!nick){alert("Введи ник!");return;}
+let nick=document.getElementById(nickInput).value;if(!nick){alert("Введи ник!");return;}
 let method=document.getElementById("method").value;
-if(method=="PayPal"){
-let fname=document.getElementById("fname").value;
-let lname=document.getElementById("lname").value;
-if(!fname||!lname){alert("Введи имя и фамилию!");return;}
-}
+if(method=="PayPal"){let f=document.getElementById("fname").value,l=document.getElementById("lname").value;if(!f||!l){alert("Введи имя и фамилию!");return;}}
 let custom=document.getElementById("customAmount").value;
 if(rank=="custom" && (!custom || custom<1)){alert("Введите сумму!");return;}
 alert("✅ Оплата прошла!");
-fetch(`https://тв-сервер.com/donate?player=${nick}&rank=${rank}&amount=${custom||amount}`)
-.catch(err=>console.log("Сервер не ответил", err));
+fetch(`https://тв-сервер.com/donate?player=${nick}&rank=${rank}&amount=${custom||amount}`).catch(err=>console.log("Сервер не ответил", err));
 }
 </script>
 </body>
