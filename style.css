@@ -1,1 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #000;
+    text-align: center;
+    padding: 20px;
+}
 
+header h1 {
+    font-size: 2em;
+    color: red;
+}
+
+section {
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px solid #000;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+input, select, button {
+    width: 90%;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 1em;
+}
