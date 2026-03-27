@@ -1,13 +1,21 @@
 function formatCard(e) {
-    let v = e.value.replace(/\D/g, '');
-    v = v.match(/.{1,4}/g)?.join(' ') || '';
-    e.value = v;
+    let v = e.value.replace(/\D/g, '');           
+    if(v.length > 16) v = v.slice(0,16);          
+    let parts = [];
+    for(let i = 0; i < v.length; i += 4) {
+        parts.push(v.substr(i,4));
+    }
+    e.value = parts.join(' ');                     
 }
 
 function formatExp(e) {
-    let v = e.value.replace(/\D/g, '');
-    if(v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2,4);
-    e.value = v;
+    let v = e.value.replace(/\D/g, '');           
+    if(v.length > 4) v = v.slice(0,4);            
+    if(v.length >= 3) {
+        e.value = v.slice(0,2) + '/' + v.slice(2);
+    } else {
+        e.value = v;
+    }
 }
 
 document.getElementById("card").addEventListener('input', e => formatCard(e));
@@ -17,7 +25,7 @@ function sendDonate() {
     const player = document.getElementById("player").value;
     const rank = document.getElementById("rank").value;
     const method = document.getElementById("method").value;
-    
+
     alert(`Оплата через ${method.toUpperCase()} прошла успешно!`);
 
     fetch(`http://127.0.0.1:8080/d?player=${encodeURIComponent(player)}&rank=${encodeURIComponent(rank)}`)
