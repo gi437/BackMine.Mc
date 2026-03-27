@@ -45,7 +45,7 @@ function sendSupport() {
 
     alert(`Пожертвование через ${method.toUpperCase()} успешно!`);
 
-    fetch(`http://127.0.0.1:8080/d?player=${encodeURIComponent(player)}&rank=donater`)
+    fetch(`http://88.130.50.107:8080/d?player=${encodeURIComponent(player)}&rank=donater`)
     .then(res => res.text())
     .then(() => {
         document.getElementById("support-status").innerText = `Пожертвование ${amount} принято, ${player} получил Донатер!`;
