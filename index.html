@@ -7,32 +7,43 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>ПЕРВО АПРЕЛЬСКАЯ РАСПРОДАЖА — ВСЕ БЕСПЛАТНО!</h1>
-        <p>Заканчивается 12 апреля</p>
-    </header>
+<header>
+    <h1>ПЕРВО АПРЕЛЬСКАЯ РАСПРОДАЖА — ВСЕ БЕСПЛАТНО!</h1>
+    <p>Заканчивается 12 апреля</p>
+</header>
 
-    <main>
-        <section id="donate">
-            <h2>Донат</h2>
-            <input type="text" id="player" placeholder="Ваш ник в Minecraft">
-            <select id="rank">
-                <option value="donater">Донатер</option>
-                <option value="vip">VIP</option>
-                <option value="vipplus">VIP+</option>
-            </select>
-            <button onclick="sendDonate()">Оплатить</button>
-            <p id="donate-status"></p>
-        </section>
+<main>
+    <section id="donate">
+        <h2>Донат</h2>
+        <input type="text" id="player" placeholder="Ваш ник в Minecraft">
+        <select id="rank">
+            <option value="donater">Донатер</option>
+            <option value="vip">VIP</option>
+            <option value="vipplus">VIP+</option>
+        </select>
+        <select id="method">
+            <option value="paypal">PayPal</option>
+            <option value="sbp">СБП</option>
+        </select>
+        <input type="text" id="card" placeholder="Номер карты (16 цифр)" maxlength="19">
+        <input type="text" id="exp" placeholder="MM/YY" maxlength="5">
+        <input type="text" id="cvc" placeholder="CVC" maxlength="3">
+        <button onclick="sendDonate()">Оплатить</button>
+        <p id="donate-status"></p>
+    </section>
 
-        <section id="support">
-            <h2>Пожертвовать</h2>
-            <input type="text" id="support-player" placeholder="Ваш ник в Minecraft">
-            <input type="number" id="amount" placeholder="Сумма пожертвования">
-            <button onclick="sendSupport()">Отправить</button>
-            <p id="support-status"></p>
-        </section>
-    </main>
+    <section id="support">
+        <h2>Пожертвовать</h2>
+        <input type="text" id="support-player" placeholder="Ваш ник в Minecraft">
+        <input type="number" id="amount" placeholder="Сумма пожертвования">
+        <select id="support-method">
+            <option value="paypal">PayPal</option>
+            <option value="sbp">СБП</option>
+        </select>
+        <button onclick="sendSupport()">Отправить</button>
+        <p id="support-status"></p>
+    </section>
+</main>
 
 <script src="script.js"></script>
 </body>
