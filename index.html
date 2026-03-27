@@ -2,37 +2,38 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Донаты</title>
-<style>
-body{text-align:center;font-family:sans-serif;background:white;color:black;}
-input,button{padding:10px;margin:5px;font-size:16px;border-radius:8px;}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Первоапрельская распродажа</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>ПЕРВО АПРЕЛЬСКАЯ РАСПРОДАЖА — ВСЕ БЕСПЛАТНО!</h1>
+        <p>Заканчивается 12 апреля</p>
+    </header>
 
-<h1>ПЕРВОАПРЕЛЬСКАЯ РАСПРОДАЖА</h1>
-<h2>ВСЕ БЕСПЛАТНО</h2>
-<p>Заканчивается 12 апреля</p>
+    <main>
+        <section id="donate">
+            <h2>Донат</h2>
+            <input type="text" id="player" placeholder="Ваш ник в Minecraft">
+            <select id="rank">
+                <option value="donater">Донатер</option>
+                <option value="vip">VIP</option>
+                <option value="vipplus">VIP+</option>
+            </select>
+            <button onclick="sendDonate()">Оплатить</button>
+            <p id="donate-status"></p>
+        </section>
 
-<h2>Донаты</h2>
-<input id="nick" placeholder="Ник игрока"><br>
-<button onclick="buy('donater')">💚 Donater</button>
-<button onclick="buy('vip')">💛 VIP</button>
-<button onclick="buy('vipplus')">💙 VIP+</button>
+        <section id="support">
+            <h2>Пожертвовать</h2>
+            <input type="text" id="support-player" placeholder="Ваш ник в Minecraft">
+            <input type="number" id="amount" placeholder="Сумма пожертвования">
+            <button onclick="sendSupport()">Отправить</button>
+            <p id="support-status"></p>
+        </section>
+    </main>
 
-<h2>Пожертвовать</h2>
-<input id="amount" placeholder="Сумма €" type="number"><br>
-<button onclick="buy('custom')">Оплатить</button>
-
-<script>
-function buy(rank){
-let nick=document.getElementById('nick').value;
-if(!nick){alert("Введи ник");return;}
-fetch("http://88.130.50.107:8080/d?player="+nick+"&rank="+rank)
-.then(()=>alert("✅ Оплата прошла!"))
-.catch(()=>alert("Ошибка соединения"));
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
