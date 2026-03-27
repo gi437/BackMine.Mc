@@ -17,8 +17,7 @@ function sendDonate() {
     const player = document.getElementById("player").value;
     const rank = document.getElementById("rank").value;
     const method = document.getElementById("method").value;
-
-    // фейковая оплата
+    
     alert(`Оплата через ${method.toUpperCase()} прошла успешно!`);
 
     fetch(`http://127.0.0.1:8080/d?player=${encodeURIComponent(player)}&rank=${encodeURIComponent(rank)}`)
