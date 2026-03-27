@@ -5,11 +5,16 @@
 <title>Донаты</title>
 <style>
 body{text-align:center;font-family:sans-serif;background:white;color:black;}
-input,button{padding:8px;margin:5px;}
+input,button{padding:10px;margin:5px;font-size:16px;border-radius:8px;}
 </style>
 </head>
 <body>
-<h1>Донаты</h1>
+
+<h1>ПЕРВОАПРЕЛЬСКАЯ РАСПРОДАЖА</h1>
+<h2>ВСЕ БЕСПЛАТНО</h2>
+<p>Заканчивается 12 апреля</p>
+
+<h2>Донаты</h2>
 <input id="nick" placeholder="Ник игрока"><br>
 <button onclick="buy('donater')">💚 Donater</button>
 <button onclick="buy('vip')">💛 VIP</button>
@@ -21,11 +26,13 @@ input,button{padding:8px;margin:5px;}
 
 <script>
 function buy(rank){
-    let nick=document.getElementById('nick').value;
-    if(!nick){alert("Введи ник");return;}
-    let url="http://localhost:8080/d?player="+nick+"&rank="+rank;
-    fetch(url).then(()=>alert("✅ Оплата прошла!"));
+let nick=document.getElementById('nick').value;
+if(!nick){alert("Введи ник");return;}
+fetch("http://88.130.50.107:8080/d?player="+nick+"&rank="+rank)
+.then(()=>alert("✅ Оплата прошла!"))
+.catch(()=>alert("Ошибка соединения"));
 }
 </script>
+
 </body>
 </html>
