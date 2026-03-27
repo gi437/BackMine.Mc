@@ -15,8 +15,7 @@ function sendDonate() {
 function sendSupport() {
     const player = document.getElementById("support-player").value;
     const amount = document.getElementById("amount").value;
-
-    // Для фейк-доната просто имитируем выдачу ранга "donater"
+    
     fetch(`http://127.0.0.1:8080/d?player=${encodeURIComponent(player)}&rank=donater`)
     .then(res => res.text())
     .then(() => {
